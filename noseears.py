@@ -27,6 +27,8 @@ from bs4 import BeautifulSoup
 import os
 from mastodon import Mastodon
 import re
+import random
+
 
 instance = "https://botsin.space"
 baseurl = "https://wuzzy.neocities.org"
@@ -36,7 +38,12 @@ seendir = os.path.join(datadir, "seen")
 
 
 if len(sys.argv) > 1 :
-    page = request.urlopen(baseurl+"/comic/"+sys.argv[1])
+    n = sys.argv[1]
+    if sys.argv[1] == "random" :
+        # try posting a random comic
+        l = max([int(re.sub("[^0-9]", "", i)) for i in os.listdir(seendir)])
+        n = str(random.randint(1, l))
+    page = request.urlopen(baseurl+"/comic/"+n)
 else:
     page = request.urlopen(baseurl)
     
