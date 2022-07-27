@@ -33,6 +33,7 @@ import random
 instance = "https://botsin.space"
 baseurl = "https://wuzzy.neocities.org"
 datadir = "data"
+credfile= "cred"
 cachedir = os.path.join(datadir, "cache")
 seendir = os.path.join(datadir, "seen")
 
@@ -67,8 +68,8 @@ if not img :
     print("No image found!")
     sys.exit(1)
 
-
-permalink = baseurl + "/comic/" + re.sub("[^0-9]", "", img)
+number = re.sub("[^0-9]", "", img) # number of comic
+permalink = baseurl + "/comic/" + number
 ## try to fetch comic from url
       
 if not os.path.exists(cachedir) :
@@ -77,7 +78,7 @@ if not os.path.exists(seendir) :
     os.makedirs(seendir)
 
 fname = os.path.join(cachedir,img.split("/")[-1])
-seen = os.path.join(seendir,img.split("/")[-1])
+seen = os.path.join(seendir, number)
 if os.path.exists(seen) :
     sys.exit(0)
 
@@ -86,7 +87,7 @@ if os.path.exists(seen) :
 request.urlretrieve(baseurl+img, fname)
 
 mastodon = Mastodon(
-    access_token="cred",
+    access_token=credfile,
     api_base_url=instance
 )
 md = mastodon.media_post(fname, "image/png", description=alt)
