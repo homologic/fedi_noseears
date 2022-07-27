@@ -35,7 +35,11 @@ cachedir = os.path.join(datadir, "cache")
 seendir = os.path.join(datadir, "seen")
 
 
-page = request.urlopen(baseurl)
+if len(sys.argv) > 1 :
+    page = request.urlopen(baseurl+"/comic/"+sys.argv[1])
+else:
+    page = request.urlopen(baseurl)
+    
 soup = BeautifulSoup(page, features="lxml")
 
 
