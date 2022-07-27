@@ -68,7 +68,6 @@ if not os.path.exists(seendir) :
 fname = os.path.join(cachedir,img.split("/")[-1])
 seen = os.path.join(seendir,img.split("/")[-1])
 if os.path.exists(seen) :
-    print("We already know this image!")
     sys.exit(0)
 
 # download comic
