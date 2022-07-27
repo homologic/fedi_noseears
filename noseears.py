@@ -42,7 +42,7 @@ if len(sys.argv) > 1 :
     n = sys.argv[1]
     if sys.argv[1] == "random" :
         # try posting a random comic
-        l = max([int(re.sub("[^0-9]", "", i)) for i in os.listdir(seendir)])
+        l = max([int(i) for i in os.listdir(seendir)])
         n = str(random.randint(1, l))
     page = request.urlopen(baseurl+"/comic/"+n)
 else:
